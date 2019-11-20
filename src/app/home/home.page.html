@@ -7,6 +7,11 @@
 </ion-header>
 
 <ion-content>
+
+  <h6 *ngFor="let item of listaHoraCerta">
+    {{item.cor}} / {{item.data}} / {{item.hora}}
+  </h6>
+
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="cadastrarHoraCerta()">
       <ion-icon name="add"></ion-icon>

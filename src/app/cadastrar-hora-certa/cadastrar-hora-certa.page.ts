@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-cadastrar-hora-certa',
@@ -17,13 +19,50 @@ export class CadastrarHoraCertaPage implements OnInit {
     cor: new FormControl('', Validators.required)
   });
 
-  constructor() { }
+  constructor(private storage: Storage, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      console.log(params);
+      console.log(this.router.getCurrentNavigation().extras.queryParams);
+    });
+  }
+
+  formataZerosEsquerda(valor: number) {
+    return valor > 10 ? valor : "0" + valor;
   }
 
   cadastrarHoraCerta() {
-    console.log(this.formCadastrarHoraCerta.value);
+    let form = this.formCadastrarHoraCerta.value;
+    form.status = 0;
+
+    let dataCompleta = new Date(form.data), 
+        horaCompleta = new Date(form.hora);
+
+    let dia = this.formataZerosEsquerda(dataCompleta.getDate()),
+        mes = this.formataZerosEsquerda(dataCompleta.getMonth() + 1),
+        ano = dataCompleta.getFullYear(),
+        hora = this.formataZerosEsquerda(horaCompleta.getHours()),
+        minutos = this.formataZerosEsquerda(horaCompleta.getMinutes());
+
+    form.data = dia + "/" + mes + "/" + ano;
+    form.hora = hora + ":" + minutos;
+
+    console.log(form);
+    
+    let listaHoraCerta = [form];
+
+    this.storage.get('listaHoraCerta').then((value: any) => {
+      if (value !== null || value !== undefined) {
+        let objeto = JSON.parse(value);
+        listaHoraCerta = listaHoraCerta.concat(objeto);
+      }
+
+      this.storage.set('listaHoraCerta', JSON.stringify(listaHoraCerta));
+    });
+
+    this.formCadastrarHoraCerta.reset();
   }
 
 }
+
