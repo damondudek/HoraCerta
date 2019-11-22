@@ -7,6 +7,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 
+import { Storage } from '@ionic/storage';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -19,7 +21,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     private backgroundMode: BackgroundMode,
     private textToSpeech: TextToSpeech,
-    private navController: NavController
+    private navController: NavController,
+    private storage: Storage
   ) {
     this.initializeApp();
   }
@@ -31,27 +34,64 @@ export class AppComponent {
       this.splashScreen.hide();
 
       this.backgroundMode.enable();
-      //this.backgroundMode.disableWebViewOptimizations(); 
       this.backgroundMode.setDefaults({ silent: true });
       
       //this.backgroundMode.overrideBackButton();
       //this.backgroundMode.moveToBackground();
 
       this.backgroundMode.on('activate').subscribe(() => {      
-        //this.backgroundMode.disableWebViewOptimizations();
+        this.backgroundMode.disableWebViewOptimizations();        
         
-        setInterval(() => {
-          this.navController.navigateRoot('/despertar').then(() => {
-            this.backgroundMode.wakeUp();
-            this.backgroundMode.unlock();
-            this.textToSpeech.speak({
-              text: "Boa noite",
-              locale: "pt-BR",
-              rate: 1
-            });
-          });
-        }, 15000);
+        setInterval(this.verificaAlarmes, 15000);
       });
     });
   }
+
+  formataZerosEsquerda(valor: number) {
+    return valor > 9 ? valor : "0" + valor;
+  }
+
+  formataData(data: Date) {
+    return this.formataZerosEsquerda(data.getDate()) + 
+            "/" + 
+            this.formataZerosEsquerda(data.getMonth()) + 
+            "/" + 
+            data.getFullYear();
+  }
+
+  formataHora(data: Date) {
+    let horas = data.getHours(),
+        minutos = data.getMinutes();
+
+    return this.formataZerosEsquerda(horas) + 
+            ":" + 
+            this.formataZerosEsquerda(minutos);
+  }
+
+  verificaAlarmes() {
+    let hoje = new Date(),
+        data = this.formataData(hoje),
+        hora = this.formataHora(hoje),
+        despertar = [];
+
+    this.storage.get("listaHoraCerta").then((value) => {
+      let listaDeAlarmes: [] = JSON.parse(value);
+
+      despertar = listaDeAlarmes.filter((value: any, index) => {
+          return value.data === data && value.hora === hora;
+      });
+
+      if (despertar.length > 0) {
+        this.navController.navigateRoot('/despertar').then(() => {
+          this.textToSpeech.speak({
+            text: "Boa noite turma!!! vamo q vamo! Acorda Eliiiiasssss",
+            locale: "pt-BR",
+            rate: 1
+          });
+        });
+      }
+
+    });
+  }
+
 }

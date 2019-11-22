@@ -29,7 +29,7 @@ export class CadastrarHoraCertaPage implements OnInit {
   }
 
   formataZerosEsquerda(valor: number) {
-    return valor > 10 ? valor : "0" + valor;
+    return valor > 9 ? valor : "0" + valor;
   }
 
   cadastrarHoraCerta() {
@@ -53,7 +53,7 @@ export class CadastrarHoraCertaPage implements OnInit {
     let listaHoraCerta = [form];
 
     this.storage.get('listaHoraCerta').then((value: any) => {
-      if (value !== null || value !== undefined) {
+      if (value !== null) {
         let objeto = JSON.parse(value);
         listaHoraCerta = listaHoraCerta.concat(objeto);
       }

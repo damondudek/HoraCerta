@@ -10,7 +10,7 @@ import { Storage } from '@ionic/storage';
 })
 export class HomePage {
   
-  listaHoraCerta = [];
+  listaHoraCerta: any = [];
 
   constructor(private navCtrl: NavController, private storage: Storage) {}
 
