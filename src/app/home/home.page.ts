@@ -23,12 +23,7 @@ export class HomePage {
   }
 
   cadastrarHoraCerta() {
-    this.navCtrl.navigateForward('/cadastrar-hora-certa', {
-      animated: true,
-      queryParams: {
-        senac: "yess"
-      }
-    });
+    this.navCtrl.navigateForward('/cadastrar-hora-certa');
   }
 
 }

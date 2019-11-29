@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -19,12 +19,11 @@ export class CadastrarHoraCertaPage implements OnInit {
     cor: new FormControl('', Validators.required)
   });
 
-  constructor(private storage: Storage, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private storage: Storage, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
       console.log(params);
-      console.log(this.router.getCurrentNavigation().extras.queryParams);
     });
   }
 
