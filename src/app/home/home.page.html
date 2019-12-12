@@ -10,6 +10,7 @@
 
   <h6 *ngFor="let item of listaHoraCerta">
     {{item.cor}} / {{item.data}} / {{item.hora}}
+    <button (click)="excluirAlarme(item)">Excluir</button>
   </h6>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

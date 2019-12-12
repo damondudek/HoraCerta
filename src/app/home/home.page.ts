@@ -10,7 +10,7 @@ import { Storage } from '@ionic/storage';
 })
 export class HomePage {
   
-  listaHoraCerta: any = [];
+  listaHoraCerta: any[] = [];
 
   constructor(private navCtrl: NavController, private storage: Storage) {}
 
@@ -26,4 +26,20 @@ export class HomePage {
     this.navCtrl.navigateForward('/cadastrar-hora-certa');
   }
 
+  excluirAlarme(alarme: any) {
+    // toda a lógica de buscar o alarme dentro do array
+    // e excluir
+
+    let excluir = this.listaHoraCerta.findIndex((value: any) => {
+                    return value.data === alarme.data &&
+                           value.hora === alarme.hora &&
+                           value.falarTexto === alarme.falarTexto &&
+                           value.cor === alarme.cor &&
+                           value.status === alarme.status;
+                  });
+
+    this.listaHoraCerta.splice(excluir, 1);    
+
+    this.storage.set('listaHoraCerta', JSON.stringify(this.listaHoraCerta));
+  }  
 }

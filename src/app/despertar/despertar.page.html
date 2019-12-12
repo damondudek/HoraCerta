@@ -7,9 +7,9 @@
 <ion-content>
   <h4>Data: {{alarme.data}}</h4>
   <h4>Hora: {{alarme.hora}}</h4>
-  <h4>Cor: {{alarme.cor}}</h4>
+  <h4 [ngStyle]="{'background-color': alarme.cor}">Cor: {{alarme.cor}}</h4>
   <h4>FalarTexto: {{alarme.falarTexto}}</h4>
 
-  <button (click)="cancelar(alarme)">Cancelar X</button>
+  <button (click)="cancelar()">Cancelar X</button>
 
 </ion-content>

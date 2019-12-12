@@ -71,15 +71,24 @@ export class AppComponent {
         despertar = [];
 
     this.storage.get("listaHoraCerta").then((value) => {
-      let listaDeAlarmes: [] = JSON.parse(value);
+      let listaDeAlarmes = JSON.parse(value);
 
-      despertar = listaDeAlarmes.filter((value: any, index) => {
-          return value.data === data && value.hora === hora;
+      listaDeAlarmes = listaDeAlarmes.map((value: any, index) => {
+          if (value.status === 0 && 
+              value.data === data && 
+              value.hora === hora) {
+                value.status = 1;
+                despertar.push(value);
+              }
+
+          return value;
       });
 
       if (despertar.length > 0) {
-        this.navController.navigateRoot('/despertar', {
-          queryParams: despertar[0]
+        this.storage.set("listaHoraCerta", JSON.stringify(listaDeAlarmes)).then(() => {
+          this.navController.navigateRoot('/despertar', {
+            queryParams: despertar[0]
+          });
         });
       }
 
