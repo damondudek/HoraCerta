@@ -11,7 +11,6 @@ import { BackgroundMode } from '@ionic-native/background-mode/ngx';
   styleUrls: ['./despertar.page.scss'],
 })
 export class DespertarPage implements OnInit {
-
   alarme: any = {};
   cancelado: boolean = false;
 
@@ -28,6 +27,9 @@ export class DespertarPage implements OnInit {
   }
 
   despertar() {
+    /*const el = document.getElementById('ion-content-despertar');
+          el.style.setProperty('--ion-background-color', 'red');*/
+
     if (this.cancelado) return;
 
     this.textToSpeech.speak({

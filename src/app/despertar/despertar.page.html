@@ -4,12 +4,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <h4>Data: {{alarme.data}}</h4>
+<ion-content id="ion-content-despertar" class="animacao">
+  <h4 [style.background-color]="'red'">Data: {{alarme.data}}</h4>
   <h4>Hora: {{alarme.hora}}</h4>
   <h4 [ngStyle]="{'background-color': alarme.cor}">Cor: {{alarme.cor}}</h4>
   <h4>FalarTexto: {{alarme.falarTexto}}</h4>
 
   <button (click)="cancelar()">Cancelar X</button>
-
 </ion-content>

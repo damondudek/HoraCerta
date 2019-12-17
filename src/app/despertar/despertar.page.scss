@@ -1,0 +1,9 @@
+.animacao {
+    animation: colorchange 5s infinite;
+}
+
+@keyframes colorchange
+    {
+        0% {--ion-background-color: #fff;}
+      100% {--ion-background-color: red;}
+    }
