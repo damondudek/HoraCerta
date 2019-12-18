@@ -27,8 +27,9 @@ export class DespertarPage implements OnInit {
   }
 
   despertar() {
-    /*const el = document.getElementById('ion-content-despertar');
-          el.style.setProperty('--ion-background-color', 'red');*/
+    const el = document.getElementById('ion-content-despertar');
+          el.style.setProperty('--ion-background-color', this.alarme.cor);
+          el.style.setProperty('--color', 'white');
 
     if (this.cancelado) return;
 

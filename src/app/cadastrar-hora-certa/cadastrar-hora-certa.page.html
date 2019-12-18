@@ -10,6 +10,11 @@
 <ion-content>
   <form [formGroup]="formCadastrarHoraCerta" (ngSubmit)="cadastrarHoraCerta()">
     <ion-item>
+      <ion-label>Nome</ion-label>
+      <ion-input type="text" formControlName="nome"></ion-input>
+    </ion-item>
+
+    <ion-item>
       <ion-label>Data</ion-label>
       <ion-datetime formControlName="data" displayFormat="DD/MM/YYYY" cancelText="Cancelar" doneText="Pronto"></ion-datetime>
     </ion-item>

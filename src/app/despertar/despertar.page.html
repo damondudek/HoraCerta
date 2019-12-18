@@ -1,14 +1,23 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>despertar</ion-title>
+    <ion-title>
+      Despertando...
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content id="ion-content-despertar" class="animacao">
-  <h4 [style.background-color]="'red'">Data: {{alarme.data}}</h4>
-  <h4>Hora: {{alarme.hora}}</h4>
-  <h4 [ngStyle]="{'background-color': alarme.cor}">Cor: {{alarme.cor}}</h4>
-  <h4>FalarTexto: {{alarme.falarTexto}}</h4>
-
-  <button (click)="cancelar()">Cancelar X</button>
+    <ion-card>  
+      <ion-card-header>
+        <ion-card-subtitle>{{alarme.data}} {{alarme.hora}}</ion-card-subtitle>
+        <ion-card-title>{{alarme.nome}}</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        {{alarme.falarTexto}}
+        <ion-button color="danger" size="large" expand="block" (click)="cancelar()">
+          <ion-icon slot="start" name="close"></ion-icon> Cancelar
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
 </ion-content>

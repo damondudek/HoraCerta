@@ -15,11 +15,9 @@ export class HomePage {
   constructor(private navCtrl: NavController, private storage: Storage) {}
 
   ionViewWillEnter() {
-    //this.storage.clear();
-
     this.storage.get('listaHoraCerta').then((value: any) => {
       this.listaHoraCerta = JSON.parse(value);
-    });
+    });    
   }
 
   cadastrarHoraCerta() {
@@ -27,9 +25,6 @@ export class HomePage {
   }
 
   excluirAlarme(alarme: any) {
-    // toda a lógica de buscar o alarme dentro do array
-    // e excluir
-
     let excluir = this.listaHoraCerta.findIndex((value: any) => {
                     return value.data === alarme.data &&
                            value.hora === alarme.hora &&
@@ -39,7 +34,6 @@ export class HomePage {
                   });
 
     this.listaHoraCerta.splice(excluir, 1);    
-
     this.storage.set('listaHoraCerta', JSON.stringify(this.listaHoraCerta));
   }  
 }

@@ -13,6 +13,7 @@ import { Storage } from '@ionic/storage';
 export class CadastrarHoraCertaPage implements OnInit {
 
   formCadastrarHoraCerta = new FormGroup({
+    nome: new FormControl('', Validators.required),
     data: new FormControl('', Validators.required),
     hora: new FormControl('', Validators.required),
     falarTexto: new FormControl('', Validators.required),
@@ -46,8 +47,6 @@ export class CadastrarHoraCertaPage implements OnInit {
 
     form.data = dia + "/" + mes + "/" + ano;
     form.hora = hora + ":" + minutos;
-
-    console.log(form);
     
     let listaHoraCerta = [form];
 

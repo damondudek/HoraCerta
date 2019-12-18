@@ -1,9 +1,7 @@
-.animacao {
-    animation: colorchange 5s infinite;
+ion-content {
+    animation: cor 1s linear infinite !important;
 }
 
-@keyframes colorchange
-    {
-        0% {--ion-background-color: #fff;}
-      100% {--ion-background-color: red;}
-    }
+@keyframes cor {
+    100% { --ion-background-color: white; }
+}
